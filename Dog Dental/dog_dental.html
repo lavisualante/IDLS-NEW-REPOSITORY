@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Dental Care - International Dog Lovers Society</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/buy-button.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .scarcity-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #ff6b6b; }
+            to { box-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff6b6b; }
+        }
+        .amazon-btn {
+            background: linear-gradient(45deg, #ff9500, #ff7300);
+            transition: all 0.3s ease;
+        }
+        .amazon-btn:hover {
+            background: linear-gradient(45deg, #ff7300, #ff5500);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <i class="fas fa-paw text-3xl text-blue-600 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">International Dog Lovers Society</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="IDLS_site_updated - Make changes here.html" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Home</a>
+                    <a href="../Dog Costumes/dog_costumes.html" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Dog Costumes</a>
+                    <a href="#dog-dental" class="text-blue-600 font-medium">Dog Dental</a>
+                    <a href="../Dog Grooming/dog_grooming.html" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Dog Grooming</a>
+                    <a href="../Dog Health/dog_health.html" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Dog Health</a>
+                    <a href="../Dog Toys/dog_toys.html" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Dog Toys</a>
+                </nav>
+                <button class="md:hidden" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 md:hidden">
+            <div class="p-4">
+                <button onclick="toggleMobileMenu()" class="mb-4">
+                    <i class="fas fa-times text-2xl text-gray-700"></i>
+                </button>
+                <div class="space-y-4">
+                    <a href="IDLS_site_updated - Make changes here.html" class="block text-gray-700 font-medium py-2" onclick="toggleMobileMenu()">Home</a>
+                    <a href="../Dog Costumes/dog_costumes.html" class="block text-gray-700 font-medium py-2" onclick="toggleMobileMenu()">Dog Costumes</a>
+                    <a href="#dog-dental" class="block text-blue-600 font-medium py-2">Dog Dental</a>
+                    <a href="../Dog Grooming/dog_grooming.html" class="block text-gray-700 font-medium py-2" onclick="toggleMobileMenu()">Dog Grooming</a>
+                    <a href="../Dog Health/dog_health.html" class="block text-gray-700 font-medium py-2" onclick="toggleMobileMenu()">Dog Health</a>
+                    <a href="../Dog Toys/dog_toys.html" class="block text-gray-700 font-medium py-2" onclick="toggleMobileMenu()">Dog Toys</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-6 text-gray-800">Premium Dog Dental Care Collection</h1>
+            <p class="text-xl text-gray-600 mb-8">Keep your dog's teeth clean and breath fresh with our top-rated dental care products!</p>
+
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <button onclick="filterProducts('all')" class="filter-btn active bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">All Products</button>
+                <button onclick="filterProducts('dental-chews')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Dental Chews</button>
+                <button onclick="filterProducts('toothpaste')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Toothpaste</button>
+                <button onclick="filterProducts('water-additive')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Water Additives</button>
+                <button onclick="filterProducts('dental-kits')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Dental Kits</button>
+                <button onclick="filterProducts('oral-care')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Oral Care</button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+            <!-- Product 1: Minties VetIQ Dog Dental Chews -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Minties VetIQ Dog Dental Chews" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Best Seller</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Minties VetIQ Dog Dental Chews (40 Count, Small Dogs)</h3>
+                    <p class="text-gray-600 mb-4">Vet-recommended dental treat chews for dogs 5-24 lbs. Mint-flavored bones help clean teeth, remove plaque/tartar, and freshen breath with five natural breath-fresheners (alfalfa, parsley, fennel, dill, peppermint)</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$8-$13</span>
+                        <a href="https://www.amazon.com/s?k=Minties+VetIQ+Dog+Dental+Chews+40+Count+Small+Dogs&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2: Greenies Original Dental Dog Treats Bulk -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Greenies Original Dental Dog Treats Bulk" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Great Value</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Greenies Original Dental Dog Treats – Teenie (260 Treat Bulk Pack)</h3>
+                    <p class="text-gray-600 mb-4">Value pack of Greenies Original Teenie dental chews (4 packs of 65, total 260 treats) designed for small dogs (5-15 lbs). VOHC-accepted chewy dental treats that help fight plaque and tartar</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.7/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$40-$50</span>
+                        <a href="https://www.amazon.com/s?k=Greenies+Original+Teenie+Dental+Dog+Treats+260+Count+Bulk+Pack&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3: Oxyfresh Premium Pet Dental Care Solution -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="water-additive">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Oxyfresh Premium Pet Dental Care Solution" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Vet Recommended</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Oxyfresh Premium Pet Dental Care Solution (Water Additive, 16 oz)</h3>
+                    <p class="text-gray-600 mb-4">Dental water additive for dogs and cats. Vet-recommended solution eliminates bad breath and fights plaque & tartar with no brushing required. Flavorless/odorless for easy daily use</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$16-$20</span>
+                        <a href="https://www.amazon.com/s?k=Oxyfresh+Premium+Pet+Dental+Care+Solution+Water+Additive+16+oz&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4: Greenies Original Dental Dog Treats Regular Pack -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Greenies Original Dental Dog Treats Regular" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Popular</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Greenies Original Dental Dog Treats – Teenie (43 Treat Pack)</h3>
+                    <p class="text-gray-600 mb-4">Regular retail pack of Greenies Teenie dental chews (12 oz bag, ~43 treats) for small dogs. Mechanically clean teeth and freshen breath as the dog chews, intended for daily use</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.7-4.8/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$10-$15</span>
+                        <a href="https://www.amazon.com/s?k=Greenies+Original+Teenie+Dental+Dog+Treats+43+Count&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5: HICC PET Teeth Cleaning Wipes -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="oral-care">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="HICC PET Teeth Cleaning Wipes" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Easy to Use</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">HICC PET Disposable Dog & Cat Teeth Cleaning Wipes</h3>
+                    <p class="text-gray-600 mb-4">Finger toothbrush wipes with mint scent for dogs and cats. Soft wipes wrap around finger to wipe away plaque, tartar, and bad breath. Alcohol-free with coconut oil-based formula</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$15-$16</span>
+                        <a href="https://www.amazon.com/s?k=HICC+PET+Disposable+Dog+Cat+Teeth+Cleaning+Wipes&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6: PetLab Co. ProBright Dental Powder -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="oral-care">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="PetLab Co. ProBright Dental Powder" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">No Brushing</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">PetLab Co. ProBright Dental Powder (Oral Care Supplement)</h3>
+                    <p class="text-gray-600 mb-4">Brush-free dental powder supplement for small dogs. Added to food daily to reduce plaque and tartar and freshen breath, using probiotics and enzymes. Easy alternative to toothpaste</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.4/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$30-$35</span>
+                        <a href="https://www.amazon.com/s?k=PetLab+Co+ProBright+Dental+Powder+Small+Dogs&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7: Virbac CET Enzymatic Dog Toothpaste -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="toothpaste">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Virbac CET Enzymatic Dog Toothpaste" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Top Rated</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Virbac C.E.T. Enzymatic Dog Toothpaste (Poultry Flavor, 2.5 oz)</h3>
+                    <p class="text-gray-600 mb-4">Popular enzymatic toothpaste formulated for dogs that breaks down plaque and tartar. Poultry flavor makes it palatable, meant for use with pet toothbrush for routine brushing</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.7/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">~$10</span>
+                        <a href="https://www.amazon.com/s?k=Virbac+CET+Enzymatic+Dog+Toothpaste+Poultry+Flavor&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8: Shameless Pets Dental Sticks -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Shameless Pets Dental Sticks" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Grain Free</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Shameless Pets Dental Sticks – "A Cluck A Day" (32 Pack)</h3>
+                    <p class="text-gray-600 mb-4">Grain-free dental chew sticks with chicken flavor. Help clean teeth and freshen breath while supporting digestion with probiotics and ginger. Ridged stick design for teeth scrubbing</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.3/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">~$25</span>
+                        <a href="https://www.amazon.com/s?k=Shameless+Pets+Dental+Sticks+A+Cluck+A+Day+32+Pack&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9: Pet Honesty Dog Dental Powder -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="oral-care">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Pet Honesty Dog Dental Powder" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Large Breed</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Pet Honesty Dog Dental Powder (Mint Flavor, 60 Servings)</h3>
+                    <p class="text-gray-600 mb-4">Mint-flavored dental powder for large breed dogs. Sprinkle on food daily to freshen breath and reduce plaque. Contains natural herbal blend plus postbiotics for oral health</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.5/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$25-$30</span>
+                        <a href="https://www.amazon.com/s?k=Pet+Honesty+Dog+Dental+Powder+Mint+Flavor+60+Servings&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10: Arm & Hammer Fresh Breath Dental Kit -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-kits">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Arm & Hammer Fresh Breath Dental Kit" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Complete Kit</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Arm & Hammer Fresh Breath Enzymatic Dental Kit</h3>
+                    <p class="text-gray-600 mb-4">Complete dog dental care kit including enzymatic toothpaste (2.5 oz, baking-soda infused, chicken flavored) plus dual-headed toothbrush and finger brush. Vet-recommended</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">3.9/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$8-$11</span>
+                        <a href="https://www.amazon.com/s?k=Arm+Hammer+Fresh+Breath+Enzymatic+Dental+Kit+Dog&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11: TropiClean Fresh Breath Water Additive -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="water-additive">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="TropiClean Fresh Breath Water Additive" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">No Brush</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">TropiClean Fresh Breath Water Additive for Dogs</h3>
+                    <p class="text-gray-600 mb-4">No-brush dental water additive that fights bacteria, reduces plaque and tartar, and freshens breath as the dog drinks. Easy oral care routine with zero hassle</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.5/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$14-$18</span>
+                        <a href="https://www.amazon.com/s?k=TropiClean+Fresh+Breath+Water+Additive+Dogs&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12: Pedigree Dentastix Dental Treats -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Pedigree Dentastix Dental Treats" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Scientifically Proven</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Pedigree Dentastix Dental Treats – Large Dog Variety Pack</h3>
+                    <p class="text-gray-600 mb-4">Variety pack of Dentastix daily dental treats for large dogs (over 30 lbs) with Original, Beef, and Fresh flavors. X-shaped chew sticks clean down to gumline, scientifically proven</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.7/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$22-$25</span>
+                        <a href="https://www.amazon.com/s?k=Pedigree+Dentastix+Large+Dog+Variety+Pack+Dental+Treats&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 13: PetLab Co. ProBright Advanced Dental Powder -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="oral-care">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="PetLab Co. ProBright Advanced Dental Powder" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Advanced Formula</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">PetLab Co. ProBright Advanced Dental Powder (Large Dogs)</h3>
+                    <p class="text-gray-600 mb-4">Advanced formula dental powder for large breed dogs. Daily food additive promotes clean teeth and fresh breath with probiotic/enzyme blend, tailored for bigger dogs or tougher dental issues</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.4/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$45-$50</span>
+                        <a href="https://www.amazon.com/s?k=PetLab+Co+ProBright+Advanced+Dental+Powder+Large+Dogs&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 14: TropiClean Clean Teeth Oral Care Gel -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="oral-care">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="TropiClean Clean Teeth Oral Care Gel" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">No Brushing</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">TropiClean Clean Teeth Oral Care Gel (No-Brushing Dental Gel)</h3>
+                    <p class="text-gray-600 mb-4">Mint-flavored dental gel that you apply along the gumline – no brushing needed. Uses natural ingredients to dissolve plaque and tartar over time and freshen breath</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.4/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$9-$12</span>
+                        <a href="https://www.amazon.com/s?k=TropiClean+Clean+Teeth+Oral+Care+Gel+No+Brushing&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 15: Nylabone Advanced Oral Care Liquid Tartar Remover -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="water-additive">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Nylabone Advanced Oral Care Liquid Tartar Remover" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Sugar Free</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Nylabone Advanced Oral Care Liquid Tartar Remover (32 oz)</h3>
+                    <p class="text-gray-600 mb-4">Dental water additive designed to fight tartar buildup and freshen breath. Clear, sugar-free solution mixed into dog's water bowl daily to reduce bacteria and plaque</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.2-4.3/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">~$15</span>
+                        <a href="https://www.amazon.com/s?k=Nylabone+Advanced+Oral+Care+Liquid+Tartar+Remover+32+oz&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 16: Vet's Best Enzymatic Dog Toothpaste -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="toothpaste">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Vet's Best Enzymatic Dog Toothpaste" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Natural Ingredients</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Vet's Best Enzymatic Dog Toothpaste (Dental Gel, 3.5 oz)</h3>
+                    <p class="text-gray-600 mb-4">Veterinarian-formulated enzymatic toothpaste gel using natural ingredients like neem oil, grapefruit seed, baking soda, and enzymes to clean teeth, fight tartar, and soothe gums</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.5/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$8-$9</span>
+                        <a href="https://www.amazon.com/s?k=Vets+Best+Enzymatic+Dog+Toothpaste+Dental+Gel+3.5+oz&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 17: Ark Naturals Brushless Toothpaste Dental Chews -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Ark Naturals Brushless Toothpaste Dental Chews" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">4-in-1 Formula</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Ark Naturals Brushless Toothpaste Dental Chews (Large Breed)</h3>
+                    <p class="text-gray-600 mb-4">4-in-1 dental chew treats with unique design – outside is chewy abrasive texture and inside is toothpaste center. Uses natural ingredients like alfalfa, cinnamon, vanilla, clove</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.4/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">~$20</span>
+                        <a href="https://www.amazon.com/s?k=Ark+Naturals+Brushless+Toothpaste+Dental+Chews+Large+Breed&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 18: OraVet Dental Hygiene Chews for Dogs -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="OraVet Dental Hygiene Chews for Dogs" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Premium</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">OraVet Dental Hygiene Chews for Dogs</h3>
+                    <p class="text-gray-600 mb-4">Premium dental chews containing delmopinol that forms a protective barrier on teeth to prevent bacteria attachment. Scrapes away existing plaque and prevents new plaque formation</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$20-$40</span>
+                        <a href="https://www.amazon.com/s?k=OraVet+Dental+Hygiene+Chews+Dogs&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 19: Milk-Bone Brushing Chews Daily Dental Treats -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Milk-Bone Brushing Chews Daily Dental Treats" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Clinically Proven</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Milk-Bone Brushing Chews Daily Dental Treats (Small/Medium)</h3>
+                    <p class="text-gray-600 mb-4">Dental bone chews designed to mimic toothbrush action. Nubs and ridges reach down to gumline with twisted shape for better cleaning. Clinically proven to reduce tartar and halitosis</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$10-$12</span>
+                        <a href="https://www.amazon.com/s?k=Milk+Bone+Brushing+Chews+Daily+Dental+Treats+Small+Medium&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 20: N-Bone Puppy Teething Dental Sticks -->
+            <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="dental-chews">
+                <div class="relative">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="N-Bone Puppy Teething Dental Sticks" class="w-full h-64 object-cover">
+                    <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">For Puppies</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">N-Bone Puppy Teething Dental Sticks (Peanut Butter Flavor)</h3>
+                    <p class="text-gray-600 mb-4">Soft edible teething sticks for puppies to soothe teething pain while promoting dental health. Flexible, puppy-friendly sticks massage gums and scrape mild plaque. Grain-free and calcium-fortified</p>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-600">$7-$10</span>
+                        <a href="https://www.amazon.com/s?k=N+Bone+Puppy+Teething+Dental+Sticks+Peanut+Butter&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                            <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About IDLS</h3>
+                    <p class="text-gray-400">International Dog Lovers Society dedicated to providing the best products for your furry friends.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="IDLS_site_updated - Make changes here.html" class="hover:text-white">Home</a></li>
+                        <li><a href="../Dog Costumes/dog_costumes.html" class="hover:text-white">Dog Costumes</a></li>
+                        <li><a href="#dog-dental" class="hover:text-white">Dog Dental</a></li>
+                        <li><a href="../Dog Grooming/dog_grooming.html" class="hover:text-white">Dog Grooming</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Customer Service</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-white">Returns</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube text-2xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 International Dog Lovers Society. All rights reserved.</p>
+                <p class="mt-2">As an Amazon Associate, we earn from qualifying purchases.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button states
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+
+            // Set active button
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            event.target.classList.add('active', 'bg-blue-600', 'text-white');
+
+            // Show/hide products based on category
+            products.forEach(product => {
+                if (category === 'all' || product.dataset.category === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
