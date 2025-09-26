@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Dog Lovers Society - Premium Pet Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/buy-button.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .scarcity-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #ff6b6b; }
+            to { box-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff6b6b; }
+        }
+        .amazon-btn {
+            background: linear-gradient(45deg, #ff9500, #ff7300);
+            transition: all 0.3s ease;
+        }
+        .amazon-btn:hover {
+            background: linear-gradient(45deg, #ff7300, #ff5500);
+            transform: scale(1.05);
+        }
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-top: 8px;
+            padding: 8px 0;
+            width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .dropdown:hover .dropdown-menu,
+        .dropdown.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+        }
+        @media (min-width: 769px) {
+            .mobile-nav {
+                display: none;
+            }
+        }
+        .mobile-dropdown {
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            max-height: 0;
+        }
+        .mobile-dropdown.open {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Desktop Header -->
+    <header class="desktop-nav bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-blue-600 text-white px-3 py-1 rounded flex items-center">
+                        <i class="fas fa-heart mr-2"></i>
+                        <span class="font-bold">IDLS</span>
+                    </div>
+                    <span class="text-gray-600 text-sm hidden lg:block">International Dog Lovers Society</span>
+                </div>
+                <nav class="flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium transition-colors" onclick="showSection('home')">Home</a>
+                    <div class="dropdown" id="desktop-dropdown">
+                        <button class="text-gray-700 hover:text-blue-600 font-medium transition-colors flex items-center" onclick="toggleDropdown('desktop-dropdown')">
+                            Dog Products <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#dog-food" onclick="showSection('dog-food'); closeDropdown('desktop-dropdown')" class="dropdown-item">Dog Food</a>
+                            <a href="#dog-house" onclick="showSection('dog-house'); closeDropdown('desktop-dropdown')" class="dropdown-item">Dog House</a>
+                            <a href="#dog-leash" onclick="showSection('dog-leash'); closeDropdown('desktop-dropdown')" class="dropdown-item">Dog Leash</a>
+                            <a href="#dog-health" onclick="showSection('dog-health'); closeDropdown('desktop-dropdown')" class="dropdown-item">Dog Health</a>
+                            <a href="#dog-grooming" onclick="showSection('dog-grooming'); closeDropdown('desktop-dropdown')" class="dropdown-item">Dog Grooming</a>
+                            <a href="#dog-dental" onclick="showSection('dog-dental'); closeDropdown('desktop-dropdown')" class="dropdown-item">Dog Dental</a>
+                            <a href="#dog-toys" onclick="showSection('dog-toys'); closeDropdown('desktop-dropdown')" class="dropdown-item">Dog Toys</a>
+                            <a href="#dog-costumes" onclick="showSection('dog-costumes'); closeDropdown('desktop-dropdown')" class="dropdown-item">Dog Costumes</a>
+                        </div>
+                    </div>
+
+                    <a href="#diy-treats" class="text-gray-700 hover:text-blue-600 font-medium transition-colors" onclick="showSection('diy-treats')">DIY Treats</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Header -->
+    <header class="mobile-nav bg-white shadow-lg sticky top-0 z-50">
+        <div class="flex items-center justify-between h-16 px-4">
+            <div class="bg-blue-600 text-white px-3 py-1 rounded flex items-center">
+                <i class="fas fa-heart mr-2"></i>
+                <span class="font-bold">IDLS</span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="text-gray-700">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-white z-50">
+            <div class="flex items-center justify-between h-16 px-4 border-b">
+                <div class="bg-blue-600 text-white px-3 py-1 rounded flex items-center">
+                    <i class="fas fa-heart mr-2"></i>
+                    <span class="font-bold">IDLS</span>
+                </div>
+                <button onclick="toggleMobileMenu()" class="text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <div class="space-y-4">
+                    <a href="#home" class="block text-gray-700 font-medium py-2" onclick="showSection('home'); toggleMobileMenu()">Home</a>
+                    <div class="border-l-4 border-blue-600 pl-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">Dog Products</h3>
+                        <div class="space-y-2">
+                            <a href="#dog-food" class="block text-gray-600 py-1" onclick="showSection('dog-food'); toggleMobileMenu()">Dog Food</a>
+                            <a href="#dog-house" class="block text-gray-600 py-1" onclick="showSection('dog-house'); toggleMobileMenu()">Dog House</a>
+                            <a href="#dog-leash" class="block text-gray-600 py-1" onclick="showSection('dog-leash'); toggleMobileMenu()">Dog Leash</a>
+                            <a href="#dog-health" class="block text-gray-600 py-1" onclick="showSection('dog-health'); toggleMobileMenu()">Dog Health</a>
+                            <a href="#dog-grooming" class="block text-gray-600 py-1" onclick="showSection('dog-grooming'); toggleMobileMenu()">Dog Grooming</a>
+                            <a href="#dog-dental" class="block text-gray-600 py-1" onclick="showSection('dog-dental'); toggleMobileMenu()">Dog Dental</a>
+                            <a href="#dog-toys" class="block text-gray-600 py-1" onclick="showSection('dog-toys'); toggleMobileMenu()">Dog Toys</a>
+                            <a href="#dog-costumes" class="block text-gray-600 py-1" onclick="showSection('dog-costumes'); toggleMobileMenu()">Dog Costumes</a>
+                        </div>
+                    </div>
+                    <a href="#diy-treats" class="block text-gray-700 font-medium py-2" onclick="showSection('diy-treats'); toggleMobileMenu()">DIY Treats</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- Home Section -->
+        <div id="home" class="content-section">
+            <!-- Hero Section -->
+            <div class="gradient-bg text-white py-20 rounded-2xl mb-12">
+                <div class="max-w-4xl mx-auto text-center px-4">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">Welcome to IDLS</h1>
+                    <p class="text-xl md:text-2xl mb-8">International Dog Lovers Society - Premium Pet Products</p>
+                    <p class="text-lg mb-8">Your trusted source for the finest dog products, carefully curated for your beloved companion's health, happiness, and wellbeing.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#dog-food" onclick="showSection('dog-food')" class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition">
+                            Shop Dog Food
+                        </a>
+                        <a href="#dog-health" onclick="showSection('dog-health')" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-blue-600 transition">
+                            Health Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Categories -->
+            <div class="mb-16">
+                <h2 class="text-4xl font-bold text-center mb-12">Featured Categories</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition cursor-pointer" onclick="showSection('dog-food')">
+                        <i class="fas fa-bone text-4xl text-orange-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Premium Dog Food</h3>
+                        <p class="text-gray-600">Nutritious meals for every life stage</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition cursor-pointer" onclick="showSection('dog-health')">
+                        <i class="fas fa-heartbeat text-4xl text-red-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Health & Wellness</h3>
+                        <p class="text-gray-600">Supplements and health products</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition cursor-pointer" onclick="showSection('dog-grooming')">
+                        <i class="fas fa-cut text-4xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Grooming Essentials</h3>
+                        <p class="text-gray-600">Keep your pup looking their best</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition cursor-pointer" onclick="showSection('dog-toys')">
+                        <i class="fas fa-gamepad text-4xl text-purple-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Fun & Toys</h3>
+                        <p class="text-gray-600">Entertainment and enrichment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="bg-blue-50 rounded-2xl p-8 mb-16">
+                <h2 class="text-4xl font-bold text-center mb-12">Why Choose IDLS?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <i class="fas fa-certificate text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Quality Guaranteed</h3>
+                        <p class="text-gray-600">Every product is tested and approved by our team of pet experts</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-shipping-fast text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Fast Shipping</h3>
+                        <p class="text-gray-600">Quick delivery to your doorstep with tracking</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-user-shield text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Secure Shopping</h3>
+                        <p class="text-gray-600">Safe and secure checkout process</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog Food Section -->
+        <div id="dog-food" class="content-section hidden">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-5xl font-bold text-center mb-8">Premium Dog Food Collection</h1>
+                <p class="text-xl text-gray-600 text-center mb-12">Discover our curated selection of the finest dog foods for every life stage and dietary need.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Premium dog food products would go here -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-bone text-6xl text-gray-400"></i>
+                            </div>
+                            <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Best Seller
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Premium Dog Food</h3>
+                            <p class="text-gray-600 mb-4">High-quality nutrition for your beloved companion</p>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold text-green-600">$29.99</span>
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400 mr-2">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600">(2,847)</span>
+                                </div>
+                            </div>
+                            <button onclick="window.open('https://www.amazon.com/s?k=premium+dog+food&tag=idls-20', '_blank')" class="w-full amazon-btn text-white py-3 rounded-xl font-bold text-lg">
+                                <i class="fab fa-amazon mr-2"></i>Shop on Amazon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog House Section -->
+        <div id="dog-house" class="content-section hidden">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-5xl font-bold text-center mb-8">Dog Houses & Outdoor Living</h1>
+                <p class="text-xl text-gray-600 text-center mb-12">Comfortable and durable dog houses for outdoor protection and indoor comfort.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Dog house products would go here -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-home text-6xl text-gray-400"></i>
+                            </div>
+                            <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Weatherproof
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Premium Dog House</h3>
+                            <p class="text-gray-600 mb-4">Durable and weatherproof shelter for your pet</p>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold text-green-600">$149.99</span>
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400 mr-2">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600">(1,234)</span>
+                                </div>
+                            </div>
+                            <button onclick="window.open('https://www.amazon.com/s?k=dog+house&tag=idls-20', '_blank')" class="w-full amazon-btn text-white py-3 rounded-xl font-bold text-lg">
+                                <i class="fab fa-amazon mr-2"></i>Shop on Amazon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog Leash Section -->
+        <div id="dog-leash" class="content-section hidden">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-5xl font-bold text-center mb-8">Dog Leashes & Collars</h1>
+                <p class="text-xl text-gray-600 text-center mb-12">High-quality leashes and collars for safety, comfort, and style.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Leash products would go here -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-leash text-6xl text-gray-400"></i>
+                            </div>
+                            <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Reflective
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Premium Dog Leash</h3>
+                            <p class="text-gray-600 mb-4">Durable and comfortable leash for daily walks</p>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold text-green-600">$19.99</span>
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400 mr-2">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600">(856)</span>
+                                </div>
+                            </div>
+                            <button onclick="window.open('https://www.amazon.com/s?k=dog+leash&tag=idls-20', '_blank')" class="w-full amazon-btn text-white py-3 rounded-xl font-bold text-lg">
+                                <i class="fab fa-amazon mr-2"></i>Shop on Amazon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog Health Section -->
+        <div id="dog-health" class="content-section hidden">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-5xl font-bold text-center mb-8">Dog Health & Supplements</h1>
+                <p class="text-xl text-gray-600 text-center mb-12">Premium health products to support your dog's wellbeing and vitality.</p>
+
+                <!-- Health Supplements Section -->
+                <div class="mb-16">
+                    <h2 class="text-3xl font-bold text-center mb-4">Health Supplements</h2>
+                    <p class="text-gray-600 text-center mb-12">Premium vitamins and supplements for optimal health</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        <!-- Zesty Paws 8-in-1 -->
+                        <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden">
+                            <div class="relative">
+                                <img src="data:image/jpeg;base64,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" alt="Zesty Paws 8-in-1 Multifunctional Bites" class="w-full h-64 object-cover">
+                                <div class="absolute top-4 left-4 supplement-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                    Best Seller
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Zesty Paws 8-in-1 Multifunctional Bites</h3>
+                                <p class="text-gray-600 mb-4">Complete multivitamin with probiotics, glucosamine, and omega-3</p>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-2xl font-bold text-green-600">$29.99</span>
+                                    <div class="flex items-center">
+                                        <div class="flex text-yellow-400 mr-2">
+                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">(2,847)</span>
+                                    </div>
+                                </div>
+                                <button onclick="window.open('https://www.amazon.com/dp/B07121B839?tag=idls-20', '_blank')" class="w-full amazon-btn text-white py-3 rounded-xl font-bold text-lg">
+                                    <i class="fab fa-amazon mr-2"></i>Shop on Amazon
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- More health products would go here -->
+                        <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden">
+                            <div class="relative">
+                                <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                    <i class="fas fa-pills text-6xl text-gray-400"></i>
+                                </div>
+                                <div class="absolute top-4 left-4 health-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                    Vet Recommended
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Premium Health Supplement</h3>
+                                <p class="text-gray-600 mb-4">Advanced supplement for optimal health and wellness</p>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-2xl font-bold text-green-600">$24.99</span>
+                                    <div class="flex items-center">
+                                        <div class="flex text-yellow-400 mr-2">
+                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">(1,523)</span>
+                                    </div>
+                                </div>
+                                <button onclick="window.open('https://www.amazon.com/s?k=dog+health+supplements&tag=idls-20', '_blank')" class="w-full amazon-btn text-white py-3 rounded-xl font-bold text-lg">
+                                    <i class="fab fa-amazon mr-2"></i>Shop on Amazon
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog Grooming Section -->
+        <div id="dog-grooming" class="content-section hidden">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-5xl font-bold text-center mb-8">Dog Grooming Tools</h1>
+                <p class="text-xl text-gray-600 text-center mb-12">Keep your dog looking and feeling their best with professional grooming tools.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <!-- Grooming products would go here -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-cut text-6xl text-gray-400"></i>
+                            </div>
+                            <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Professional Grade
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Professional Grooming Kit</h3>
+                            <p class="text-gray-600 mb-4">Complete grooming set for all your dog's needs</p>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold text-green-600">$39.99</span>
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400 mr-2">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600">(3,421)</span>
+                                </div>
+                            </div>
+                            <button onclick="window.open('https://www.amazon.com/s?k=dog+grooming+kit&tag=idls-20', '_blank')" class="w-full amazon-btn text-white py-3 rounded-xl font-bold text-lg">
+                                <i class="fab fa-amazon mr-2"></i>Shop on Amazon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog Dental Section -->
+        <div id="dog-dental" class="content-section hidden">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-5xl font-bold text-center mb-8">Dog Dental Health</h1>
+                <p class="text-xl text-gray-600 text-center mb-12">Maintain your dog's oral health with our dental treats and care products.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <!-- Dental products would go here -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-tooth text-6xl text-gray-400"></i>
+                            </div>
+                            <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Vet Approved
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Dental Care Kit</h3>
+                            <p class="text-gray-600 mb-4">Complete dental care for healthy teeth and gums</p>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-bold text-green-600">$19.99</span>
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400 mr-2">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600">(2,156)</span>
+                                </div>
+                            </div>
+                            <button onclick="window.open('https://www.amazon.com/s?k=dog+dental+care&tag=idls-20', '_blank')" class="w-full amazon-btn text-white py-3 rounded-xl font-bold text-lg">
+                                <i class="fab fa-amazon mr-2"></i>Shop on Amazon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog Toys Section -->
+        <div id="dog-toys" class="content-section hidden">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-5xl font-bold text-center mb-8">Dog Toys & Entertainment</h1>
+                <p class="text-xl text-gray-600 text-center mb-12">Keep your dog engaged, active, and happy with our premium selection of toys.</p>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button onclick="filterToys('all')" class="filter-btn active bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-700 transition">All Toys</button>
+                    <button onclick="filterToys('chew')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Chew Toys</button>
+                    <button onclick="filterToys('interactive')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Interactive</button>
+                    <button onclick="filterToys('fetch')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Fetch Toys</button>
+                    <button onclick="filterToys('plush')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Plush Toys</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Benebone Wishbone -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="chew">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-bone text-6xl text-purple-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Popular</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Benebone Wishbone Durable Dog Chew Toy</h3>
+                            <p class="text-gray-600 mb-4">Durable wishbone-shaped chew toy made with real bacon flavor for dogs who love to chew.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.5/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$12-15</span>
+                                <a href="https://www.amazon.com/s?k=Benebone+Wishbone+Durable+Dog+Chew+Toy+%28Real+Bacon+Flavor%29&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KONG Classic -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="interactive">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-cube text-6xl text-red-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Best Seller</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">KONG Classic Stuffable Dog Toy</h3>
+                            <p class="text-gray-600 mb-4">Classic natural rubber toy that can be stuffed with treats for interactive play.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <span class="text-gray-600 ml-2">4.7/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$10-13</span>
+                                <a href="https://www.amazon.com/s?k=KONG+Classic+Stuffable+Dog+Toy+%28Natural+Rubber%29&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chuckit! Ultra Ball -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="fetch">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-circle text-6xl text-orange-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Top Rated</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Chuckit! Ultra Ball High-Bounce Fetch Ball</h3>
+                            <p class="text-gray-600 mb-4">High-bounce rubber ball designed for interactive fetch games and outdoor play.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <span class="text-gray-600 ml-2">4.8/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$5-9</span>
+                                <a href="https://www.amazon.com/s?k=Chuckit%21+Ultra+Ball+%28High-Bounce+Fetch+Ball%29&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Multipet Lamb Chop -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="plush">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-sheep text-6xl text-pink-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Classic</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Multipet Lamb Chop Plush Squeaky Dog Toy</h3>
+                            <p class="text-gray-600 mb-4">Classic plush Lamb Chop character toy with squeaker for comfort and play.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <span class="text-gray-600 ml-2">4.7/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$5-10</span>
+                                <a href="https://www.amazon.com/s?k=Multipet+%22Lamb+Chop%22+Plush+Squeaky+Dog+Toy&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional toys from the CSV data -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="chew">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-bone text-6xl text-blue-400"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Nylabone Original Power Chew</h3>
+                            <p class="text-gray-600 mb-4">Classic bone-shaped power chew toy with peanut butter flavor for aggressive chewers.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.5/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$8-10</span>
+                                <a href="https://www.amazon.com/s?k=Nylabone+Original+Power+Chew+Classic+Bone+%28Peanut+Butter+Flavor%29&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="interactive">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-puzzle-piece text-6xl text-green-400"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Outward Hound Hide-A-Squirrel</h3>
+                            <p class="text-gray-600 mb-4">Interactive plush tree trunk toy with removable squeaky squirrels for hide and seek play.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$15-25</span>
+                                <a href="https://www.amazon.com/s?k=Outward+Hound+Hide-A-Squirrel+Puzzle+Plush+%28Hide+and+Seek+Toy%29&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="fetch">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-frisbee text-6xl text-yellow-400"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Chuckit! Paraflight Flyer</h3>
+                            <p class="text-gray-600 mb-4">Soft flying disc with multilayer construction for safe and fun fetch games.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$10-13</span>
+                                <a href="https://www.amazon.com/s?k=Chuckit%21+Paraflight+Flyer+%28Flying+Disc+Toy%29&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="plush">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-gift text-6xl text-red-400"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Jalousie 5-Pack Plush Dog Toys</h3>
+                            <p class="text-gray-600 mb-4">Set of 5 assorted plush squeaky toys in various animal designs for small to medium dogs.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.5/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$20-23</span>
+                                <a href="https://www.amazon.com/s?k=Jalousie+5-Pack+Plush+Dog+Toys+%28Assorted+Squeaky+Toys%29&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dog Costumes Section -->
+        <div id="dog-costumes" class="content-section hidden">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-5xl font-bold text-center mb-8">Dog Costumes & Accessories</h1>
+                <p class="text-xl text-gray-600 text-center mb-12">Adorable costumes and accessories for every occasion and holiday!</p>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button onclick="filterCostumes('all')" class="filter-btn active bg-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-700 transition">All Costumes</button>
+                    <button onclick="filterCostumes('holidays')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Holidays</button>
+                    <button onclick="filterCostumes('superhero')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Superhero</button>
+                    <button onclick="filterCostumes('formal')" class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition">Formal Wear</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Sample costume entries based on typical affiliate content -->
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="holidays">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-ghost text-6xl text-purple-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Halloween Favorite</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Ghost Halloween Costume</h3>
+                            <p class="text-gray-600 mb-4">Spooky and cute ghost costume perfect for Halloween parties and trick-or-treating.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.4/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$15-25</span>
+                                <a href="https://www.amazon.com/s?k=dog+ghost+costume&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="superhero">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-mask text-6xl text-blue-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Heroic</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Superhero Cape Costume</h3>
+                            <p class="text-gray-600 mb-4">Transform your pup into a superhero with this cape and mask costume set.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <span class="text-gray-600 ml-2">4.6/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$12-18</span>
+                                <a href="https://www.amazon.com/s?k=dog+superhero+costume&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="holidays">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-tree text-6xl text-green-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Christmas Special</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Reindeer Antlers Headband</h3>
+                            <p class="text-gray-600 mb-4">Festive reindeer antlers headband perfect for Christmas photos and celebrations.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.3/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$8-12</span>
+                                <a href="https://www.amazon.com/s?k=dog+reindeer+antlers&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="formal">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-bow-tie text-6xl text-black-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Elegant</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Tuxedo Bow Tie Set</h3>
+                            <p class="text-gray-600 mb-4">Classy bow tie and collar set for formal occasions and special events.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.5/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$10-15</span>
+                                <a href="https://www.amazon.com/s?k=dog+tuxedo+bow+tie&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="holidays">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-hat-wizard text-6xl text-purple-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Magical</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Wizard Hat & Cape</h3>
+                            <p class="text-gray-600 mb-4">Magical wizard costume complete with pointed hat and flowing cape.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.4/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$18-25</span>
+                                <a href="https://www.amazon.com/s?k=dog+wizard+costume&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="superhero">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-bolt text-6xl text-yellow-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Powerful</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Lightning Bolt Costume</h3>
+                            <p class="text-gray-600 mb-4">Electrifying lightning bolt costume that will make your dog the star of the show.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.2/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$14-20</span>
+                                <a href="https://www.amazon.com/s?k=dog+lightning+costume&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="formal">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-crown text-6xl text-yellow-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Royal</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Princess Crown</h3>
+                            <p class="text-gray-600 mb-4">Beautiful princess crown that will make your dog feel like royalty.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <span class="text-gray-600 ml-2">4.7/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$12-18</span>
+                                <a href="https://www.amazon.com/s?k=dog+princess+crown&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="holidays">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-cat text-6xl text-orange-400"></i>
+                            </div>
+                            <span class="scarcity-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-semibold">Cute</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Cat Onesie Costume</h3>
+                            <p class="text-gray-600 mb-4">Adorable cat costume that's perfect for dogs who want to be cats for Halloween.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-gray-600 ml-2">4.5/5 stars</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-green-600">$16-22</span>
+                                <a href="https://www.amazon.com/s?k=dog+cat+costume&tag=idls-20" target="_blank" class="amazon-btn text-white px-6 py-2 rounded-full font-semibold">
+                                    <i class="fab fa-amazon mr-2"></i>Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIY Dog Treats Page -->
+        <div id="diy-treats" class="content-section hidden">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-5xl font-bold mb-6">Tasty DIY Dog and Puppy Treats</h1>
+                <p class="text-xl text-gray-600 mb-8">Create delicious, healthy treats your dog will absolutely love! Our comprehensive guide includes 50+ vet-approved recipes.</p>
+
+                <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="text-center">
+                            <i class="fas fa-book text-4xl text-blue-600 mb-3"></i>
+                            <h3 class="font-bold mb-2">50+ Recipes</h3>
+                            <p class="text-gray-600">From beginner to gourmet treats</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-heart text-4xl text-red-600 mb-3"></i>
+                            <h3 class="font-bold mb-2">Vet Approved</h3>
+                            <p class="text-gray-600">Safe, healthy ingredients only</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-clock text-4xl text-green-600 mb-3"></i>
+                            <h3 class="font-bold mb-2">Quick & Easy</h3>
+                            <p class="text-gray-600">Most recipes take under 30 minutes</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
+                        <h3 class="text-2xl font-bold mb-4">What You'll Get:</h3>
+                        <ul class="text-left space-y-2">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Complete ingredient lists and instructions</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Nutritional information for each recipe</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Tips for dogs with allergies or sensitivities</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Storage and serving size guidelines</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Bonus: Training treats that work every time</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <stripe-buy-button
+                            buy-button-id="buy_btn_1RQfPdAHaFxpH4KjOwiY8PBV"
+                            publishable-key="pk_live_51RQZ9eAHaFxpH4KjBpBNSHRXtOQDOuIkAXihInxgYgWJLSPa6v1HXNmoMgS7HpXugOZyJRr27b6WZhxVl8r7mKc400BajBPzz2">
+                        </stripe-buy-button>
+                    </div>
+
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-shield-alt mr-1"></i>Secure payment • Instant download • 30-day money-back guarantee
+                    </p>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4">Why Make Your Own Dog Treats?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                        <div>
+                            <h4 class="font-semibold mb-2">Health Benefits:</h4>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• Control every ingredient</li>
+                                <li>• No preservatives or additives</li>
+                                <li>• Fresh, natural nutrition</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Cost Savings:</h4>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• Save up to 70% vs store-bought</li>
+                                <li>• Make large batches easily</li>
+                                <li>• Use ingredients you already have</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('open');
+        }
+
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle('active');
+        }
+
+        function closeDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.classList.remove('active');
+        }
+
+        function filterToys(category) {
+            const cards = document.querySelectorAll('#dog-toys .product-card');
+            const buttons = document.querySelectorAll('#dog-toys .filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active', 'bg-purple-600', 'text-white'));
+            buttons.forEach(btn => btn.classList.add('bg-gray-200', 'text-gray-700'));
+
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            event.target.classList.add('active', 'bg-purple-600', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterCostumes(category) {
+            const cards = document.querySelectorAll('#dog-costumes .product-card');
+            const buttons = document.querySelectorAll('#dog-costumes .filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active', 'bg-pink-600', 'text-white'));
+            buttons.forEach(btn => btn.classList.add('bg-gray-200', 'text-gray-700'));
+
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            event.target.classList.add('active', 'bg-pink-600', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize with home section visible
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('home');
+        });
+    </script>
+</body>
+</html>
