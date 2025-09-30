@@ -33,6 +33,10 @@ A comprehensive collection of dog leashes and related products organized by cate
 - `amazon_dog_toys_bestsellers_package.zip` - Product data archive
 - `convert_images.py` - Image conversion utility
 
+### Optimized HTML Files
+- `optimized_images.html` - Latest optimized HTML page with improved image handling and performance
+- `NEWEST IDLS HTML FILE.html` - Previous version of the main HTML page
+
 ## Getting Started
 
 This repository is designed for easy integration with AI coding assistants like OpenAI Codex. The structure is optimized for:
